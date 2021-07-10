@@ -91,6 +91,14 @@ RUN rm -rf /var/lib/{apt,dpkg,cache,log}/
 RUN rm -rf /var/cache/apt/archives
 RUN rm -rf /var/cache/apt/lists
 
+###Monitoring Camunda
+
+RUN mkdir /metrics
+COPY CamundaMonitoringMetrics.groovy /metrics
+COPY settings.xml default.yml /camunda/standalone/configuration/
+COPY Camunda-Monitoring.jar /camunda/standalone/deployments
+######
+
 WORKDIR /camunda
 RUN mkdir /camunda/mail
 RUN chmod -R a+x /camunda

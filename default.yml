@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    url: ${env.DB_URL};LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=TRUE # jdbc:h2:~/devDb1;MODE=PostgreSQL;AUTO_SERVER=TRUE
+    username: ${env.DB_USERNAME}
+    password: ${env.DB_PASSWORD}
+  task:
+    scheduling:
+      pool:
+        size: 3
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+  metrics:
+    enable:
+      jvm: true
+      hikaricp: false
+      process: false
+      logback: false
+      tomcat: false
+      system: false
+      jdbc: false
+      http: false
+
+camunda:
+  bpm:
+    metrics:
+    monitoringBeansXml: file:/camunda/configuration/camunda-monitoring-beans.xml
+    job-execution:
+      enabled: false
